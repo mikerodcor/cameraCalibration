@@ -1,5 +1,12 @@
 import numpy as np
 import cv2 as cv
+from numpy.matrixlib.defmatrix import matrix
+
+
+def perpectiveTransform( pts1, pts2, img):
+    matrix = cv.getPerspectiveTransform(pts1, pts2)
+    result = cv.warpPerspective(img, matrix, (1280, 720))
+    return result
 
 # Define chessboard size (number of inner corners in width and height)
 chessboardSize = (7, 14)
@@ -23,6 +30,8 @@ cnrs = np.array([
     [[774, 555]], [[851, 548]],[[369, 623]], [[442, 631]], [[522, 638]], [[605, 640]], [[691, 638]], [[781, 632]], [[859, 623]]
 ], dtype=np.float32)
 
+
+
 # Prepare object points based on chessboard size
 objp = np.zeros((chessboardSize[0] * chessboardSize[1], 3), np.float32)
 objp[:, :2] = np.mgrid[0:chessboardSize[0], 0:chessboardSize[1]].T.reshape(-1, 2)
@@ -30,8 +39,6 @@ objp[:, :2] = np.mgrid[0:chessboardSize[0], 0:chessboardSize[1]].T.reshape(-1, 2
 # Convert object points and image points to the correct format
 objPoints = [objp]  # List of object point arrays
 imgPoints = [cnrs]  # List of image point arrays
-
-# Perform camera calibration
 ret, cameraMatrix, dist, rvecs, tvecs = cv.calibrateCamera(objPoints, imgPoints, frameSize, None, None)
 
 # Check calibration success
@@ -45,23 +52,27 @@ else:
 
 ######## Undistort
 # Load an image for undistortion
-img = cv.imread('WIN_20240826_19_31_22_Pro.jpg')
+img = cv.imread('WIN_20240826_16_25_44_Pro.jpg')
 h, w = img.shape[:2]
-newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(cameraMatrix, dist, (w, h), 1, (w, h))
 
 # Undistort the image
-dst = cv.undistort(img, cameraMatrix, dist, None, newCameraMatrix)
-# Crop the image based on the ROI
+dst = cv.undistort(img, cameraMatrix, dist, None, None)
 
-cv.imwrite('distort_result.jpg', dst)
+
+cv.imread('distort_result.jpg', dst)
 
 # Undistort with remapping
-mapx, mapy = cv.initUndistortRectifyMap(cameraMatrix, dist, None, newCameraMatrix, (1280, 720), 5)
+mapx, mapy = cv.initUndistortRectifyMap(cameraMatrix, dist, None, None, (1480, 920), 5)
 dst = cv.remap(img, mapx, mapy, cv.INTER_LINEAR)
-# Crop the image based on the ROI
-x, y, w, h = roi
-dst = dst[y:y+h, x:x+w]
-cv.imwrite('distort_result_remap.jpg', dst)
+
+#Resize image distorted and transformed
+resizedst = cv.resize(dst, (1280, 720))
+
+pt1 = np.float32([[395,33], [820, 33], [266, 690], [1005, 690]])
+pt2 = np.float32([[0, 0], [1280, 0],[0, 720],[1280, 720]])
+ptfm = perpectiveTransform(pt1, pt2, resizedst)
+
+cv.imwrite('distort_result_remap.jpg', ptfm)
 
 # Compute and print reprojection error
 mean_error = 0
