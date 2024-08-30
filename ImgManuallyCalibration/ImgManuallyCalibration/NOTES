@@ -1,0 +1,94 @@
+
+++++++++++++++++++++++Mesouring------------------
+pts1
+406,6
+829, 6
+305, 621
+980, 621
+pts2
+0, 0
+700, 0
+0, 900
+700, 900
+WIN_20240828_17_47_33_Pro.jpg
+
+Imagen procesada
+Top square = 65 x 45
+Bottom square = 79 x 65
+
+Original
+Top square = 44 x 25
+Bottom square = 72 x 63
+
+coin5-Top
+164
+
+coin5-bottom
+199
+
+Original
+coin5-Top
+113
+
+coin5-bottom
+172
+
+**********DISTANCES TESTS++++++++++++++++++
+
+--LEVEL 6
+WIN_20240829_09_35_17_Pro
+WIN_20240829_09_35_27_Pro
+WIN_20240829_09_35_52_Pro
+    (x,y) = 8, 7.5
+    process{ image: top square: 61x40
+                   buttom square: 71x47
+             coins: top coin: 140
+                    bottom coin: 162
+             proportion1: [top coin10: 253
+                         bottom coin10: 273
+                         proportion1: 0.92],
+                         {
+                         top coin50c: 200
+                         bottom coin50c:231
+                         proportion1: 86
+                         },
+             proportion2: {
+             { top coin10: 237
+                bottom coin10: 240
+                proportion: 0.98}
+             },
+             {  top coin50c: 187,
+                bottom coin50c: 192
+             }
+             proportion3: top square: 69
+                          mid square: 69
+                          bottom square: 69
+                          proportion: 1.0
+                          img: WIN_20240826_19_00_30_Pro.jpg
+                          transform points:
+                          pt1 = np.float32([[428,38], [794, 38], [305, 686], [940, 686]])
+                          pt2 = np.float32([[0, 0], [635, 0],[0, 952],[508, 952]])
+             proportion4: top coin5: 155
+                          bottom coin5: 153
+                          top coin1: 126
+                          bottom coin1: 127
+                          proportion: 0.992
+                          img: WIN_20240828_17_47_33_Pro.jpg
+                          pt1 = np.float32([[423,35], [794, 38], [325, 594], [906, 594]])
+                          pt2 = np.float32([[0, 0], [582, 0],[0, 873],[465, 873]])
+
+    }
+--LEVEL 5
+WIN_20240829_09_52_06_Pro
+WIN_20240829_09_52_11_Pro
+WIN_20240829_09_52_43_Pro
+    (x,y) = 6.5, 6.7
+
+--LEVEL 5
+
+WIN_20240829_10_21_17_Pro
+WIN_20240829_10_21_35_Pro
+    (X,Y) = 9, 6.7
+
+
+
